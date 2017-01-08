@@ -1,0 +1,43 @@
+<div class="home-container">
+	<div class="page-header">
+		<h2>Weather Forecast</h2>
+	</div>
+
+	<div class="well text-center">
+		<form name="weather-form" class="form-inline text-center" ng-submit="$ctrl.searchByCity($ctrl.city.name)">
+			<div class="form-group">
+				<input type="text" name="city" class="form-control" ng-model="$ctrl.city.name" placeholder="Enter city name...">
+				<button type="submit" class="btn btn-primary search-btn">Search</button>
+			</div>
+			<div class="form-group">
+				<button type="button" ng-if="$ctrl.inCelcius" ng-click="$ctrl.convertToCelcius()" class="btn btn-primary">In Celcius</button>
+				<button type="button" ng-if="$ctrl.inFahrenheit" ng-click="$ctrl.convertToFahrenheit()" class="btn btn-primary">In Fahrenheit</button>
+			</div>
+		</form>
+
+		<div class="row notification" ng-if="$ctrl.selectedCity">
+			<div class="col-md-12">
+				<p class="text-center">The following is a five day forecast for the city of {{$ctrl.selectedCity}}</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="row text-center">
+		<div ng-repeat="item in $ctrl.items" class="col-md-4 item-container">
+			<p>Date:{{ item.dt_txt }}</p>
+			<p><i class="" aria-hidden="true"></i> <img src="http://openweathermap.org/img/w/{{item.weather[0].icon}}.png"> {{ item.weather[0].description }}</p>
+			<p>Current: {{ item.main.temp }}
+ 				<span ng-if="$ctrl.inCelcius">&#8457;</span>
+ 				<span ng-if="$ctrl.inFahrenheit">&#8451;</span>
+			</p>
+			<p>Max: {{item.main.temp_max}}
+				<span ng-if="$ctrl.inCelcius">&#8457;</span>
+				<span ng-if="$ctrl.inFahrenheit">&#8451;</span>
+			</p>
+			<p>Min: {{item.main.temp_min}}
+				<span ng-if="$ctrl.inCelcius">&#8457;</span>
+				<span ng-if="$ctrl.inFahrenheit">&#8451;</span>
+			</p>
+		</div>
+	</div>
+</div>
